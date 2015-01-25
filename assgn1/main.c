@@ -3,15 +3,14 @@
 
 #include "mpi.h"
 
-int m = 10;
-int n = 10;
-
 void genMatrix(int m, int n, double *A);
 void genVector(int n, double *b);
 
 int main(int argc, char* argv[]) {
     MPI_Init(&argc, &argv);
 
+    int m = 10;
+    int n = 10;
     double *A = malloc(sizeof(double) * m * n);
     double *b = malloc(sizeof(double) * n);
 

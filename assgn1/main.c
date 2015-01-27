@@ -6,20 +6,30 @@
 void genMatrix(int m, int n, double *A);
 void genVector(int n, double *b);
 
-void distributeMatrix(double *A, int rowWidth, int processCount, int rowsPerProc, int extraRows) {
+void distributeData(double *A, double *vector, int rowWidth, int processCount, int rowsPerProc, int extraRows) {
     int tag = 0;
+    int rowsSent = 0;
+    // Skip rows for the leader process
+    if (extraRows != 0) {
+        rowsSent = rowsPerProc + 1;
+        --extraRows;
+    }
     for (int i = 1; i < processCount; ++i) {
         // Send an extra row to the first processes to make up for any extras
-        if (extraRows > 1) {
-            MPI_Send(A + (i * (rowWidth * rowsPerProc)), rowWidth * (rowsPerProc + 1), MPI_DOUBLE, i, tag, MPI_COMM_WORLD);
+        int rowsToSend;
+        if (extraRows > 0) {
+            rowsToSend = rowsPerProc + 1;
             --extraRows;
         } else {
-            MPI_Send(A + (i *(rowWidth * rowsPerProc)), rowWidth * rowsPerProc, MPI_DOUBLE, i, tag, MPI_COMM_WORLD);
+            rowsToSend = rowsPerProc;
         }  
+        MPI_Send(A + (rowsSent * rowWidth), rowWidth * rowsToSend, MPI_DOUBLE, i, tag, MPI_COMM_WORLD);
+        rowsSent += rowsToSend;
+        MPI_Send(vector, rowWidth, MPI_DOUBLE, i, 1, MPI_COMM_WORLD);
     }
 }
 
-void receiveMatrix(double *partialA, int rowWidth, int source, int myRank, int rowsPerProc, int extraRows) {
+void receiveData(double *partialA, double *vector, int rowWidth, int source, int myRank, int rowsPerProc, int extraRows) {
     MPI_Status status;
     
     if (myRank < extraRows) {
@@ -27,6 +37,7 @@ void receiveMatrix(double *partialA, int rowWidth, int source, int myRank, int r
     } else {
         MPI_Recv(partialA, rowWidth * rowsPerProc, MPI_DOUBLE, source, 0, MPI_COMM_WORLD, &status);
     }
+    MPI_Recv(vector, rowWidth, MPI_DOUBLE, source, 1, MPI_COMM_WORLD, &status);
 }
 
 int main(int argc, char* argv[]) {
@@ -50,8 +61,6 @@ int main(int argc, char* argv[]) {
         genMatrix(m, n, A);
         genVector(n, b);
         
-        distributeMatrix(A, n, processCount, rowsPerProc, extraRows);
-        
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
                 printf("%f ", A[(i * n) + j]);
@@ -65,16 +74,20 @@ int main(int argc, char* argv[]) {
             printf("%f ", b[i]);
         }
         printf("\n");
+        
+        distributeData(A, b, n, processCount, rowsPerProc, extraRows);
     }
     
     if (myRank != leaderRank) {
-        double *partialA = NULL;
+        int rowsToReceive;
         if (myRank < extraRows) {
-            partialA = malloc(sizeof(double) * n * (rowsPerProc + 1));
+            rowsToReceive = n * (rowsPerProc + 1);
         } else {
-            partialA = malloc(sizeof(double) * n * (rowsPerProc));
+            rowsToReceive = n * (rowsPerProc);
         }
-        receiveMatrix(partialA, n, leaderRank, myRank, rowsPerProc, extraRows);
+        double *partialA = malloc(sizeof(double) * rowsToReceive);
+        receiveData(partialA, b, n, leaderRank, myRank, rowsToReceive, extraRows);
+        
         free(partialA);
     }
 

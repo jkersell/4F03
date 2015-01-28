@@ -40,7 +40,18 @@ void receiveData(double *partialA, double *vector, int rowWidth, int source, int
     MPI_Recv(vector, rowWidth, MPI_DOUBLE, source, 1, MPI_COMM_WORLD, &status);
 }
 
-int main(int argc, char* argv[]) {
+void vectorProduct(double *partialA, double *vector, int numRows, int rowWidth, double *partialProduct) {
+    for (int i = 0; i < numRows; ++i) {
+        double dotProduct = 0.0;
+        for (int j = 0; j < rowWidth; ++j) {
+            dotProduct += *(partialA + (i * rowWidth) + j) * *(vector + j);
+        }
+        *(partialProduct + i) = dotProduct;
+        printf("%f\n", dotProduct);
+    }
+}
+
+int main(int argc, char *argv[]) {
     MPI_Init(&argc, &argv);
 
     int myRank;
@@ -76,17 +87,21 @@ int main(int argc, char* argv[]) {
         printf("\n");
         
         distributeData(A, b, n, processCount, rowsPerProc, extraRows);
+        
+        int rowsOnLeader = rowsPerProc + (extraRows == 0? 0 : 1);
+        double *partialProduct = malloc(sizeof(double) * rowsOnLeader);
+        vectorProduct(A, b, rowsOnLeader, n, partialProduct);
     }
     
     if (myRank != leaderRank) {
-        int rowsToReceive;
         if (myRank < extraRows) {
-            rowsToReceive = n * (rowsPerProc + 1);
-        } else {
-            rowsToReceive = n * (rowsPerProc);
+            ++rowsPerProc;
         }
-        double *partialA = malloc(sizeof(double) * rowsToReceive);
-        receiveData(partialA, b, n, leaderRank, myRank, rowsToReceive, extraRows);
+        double *partialA = malloc(sizeof(double) * n * rowsPerProc);
+        receiveData(partialA, b, n, leaderRank, myRank, rowsPerProc, extraRows);
+        
+        double *partialProduct = malloc(sizeof(double) * rowsPerProc);
+        vectorProduct(partialA, b, rowsPerProc, n, partialProduct);
         
         free(partialA);
     }

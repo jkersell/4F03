@@ -66,7 +66,7 @@ void printForOctave(double *A, double *b, double *result, int m, int n) {
     for (int i = 0; i < n; ++i) {
         printf("%f", b[i]);
         if (i != n - 1) {
-            printf(" ");
+            printf("; ");
         }
     }
     printf("]\n");
@@ -75,7 +75,7 @@ void printForOctave(double *A, double *b, double *result, int m, int n) {
     for (int i = 0; i < n; ++i) {
         printf("%f", result[i]);
         if (i != n - 1) {
-            printf(" ");
+            printf("; ");
         }
     }
     printf("]\n");

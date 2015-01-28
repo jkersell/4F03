@@ -48,6 +48,8 @@ void vectorProduct(double *partialA, double *vector, int numRows, int rowWidth, 
     printf("\n");
 }
 
+void getResult(int m, int n, double *A, double *b, double *y) {;}
+
 int main(int argc, char *argv[]) {
     MPI_Init(&argc, &argv);
 
@@ -101,6 +103,9 @@ int main(int argc, char *argv[]) {
             printf("%f ", *(finalProduct + i));
         }
         printf("\n");
+        
+        getResult(m, n, A, b, finalProduct);
+        
         free(A);
     } else {
         if (myRank < extraRows) {

@@ -5,6 +5,7 @@
 
 void genMatrix(int m, int n, double *A);
 void genVector(int n, double *b);
+void getResult(int m, int n, double *A, double *b, double *y);
 
 void distributeData(double *A, double *vector, int rowWidth, int processCount, int rowsPerProc, int extraRows) {
     int tag = 0;
@@ -47,8 +48,6 @@ void vectorProduct(double *partialA, double *vector, int numRows, int rowWidth, 
     }
     printf("\n");
 }
-
-void getResult(int m, int n, double *A, double *b, double *y) {;}
 
 int main(int argc, char *argv[]) {
     MPI_Init(&argc, &argv);

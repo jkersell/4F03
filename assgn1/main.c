@@ -45,6 +45,7 @@ void vectorProduct(double *partialA, double *vector, int numRows, int rowWidth, 
         *(partialProduct + i) = dotProduct;
         printf("%f\n", dotProduct);
     }
+    printf("\n");
 }
 
 int main(int argc, char *argv[]) {
@@ -80,13 +81,26 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < n; ++i) {
             printf("%f ", b[i]);
         }
-        printf("\n");
+        printf("\n\n");
         
         distributeData(A, b, n, processCount, rowsPerProc, extraRows);
         
-        int rowsOnLeader = rowsPerProc + (extraRows == 0? 0 : 1);
-        double *finalProduct = malloc(sizeof(double) * rowsOnLeader);
+        int rowsOnLeader = rowsPerProc + (extraRows == 0 ? 0 : 1);
+        double *finalProduct = malloc(sizeof(double) * m);
         vectorProduct(A, b, rowsOnLeader, n, finalProduct);
+        
+        int rowsFilled = rowsOnLeader;
+        for (int i = 1; i < processCount; ++i) {
+            MPI_Status status;
+            int rowsToReceive = rowsPerProc + (i < extraRows ? 1 : 0);
+            MPI_Recv(finalProduct + rowsFilled, rowsToReceive, MPI_DOUBLE, i, 2, MPI_COMM_WORLD, &status);
+            rowsFilled += rowsToReceive;
+        }
+        
+        for (int i = 0; i < m; ++i) {
+            printf("%f ", *(finalProduct + i));
+        }
+        printf("\n");
     } else {
         if (myRank < extraRows) {
             ++rowsPerProc;
@@ -96,6 +110,8 @@ int main(int argc, char *argv[]) {
         
         double *partialProduct = malloc(sizeof(double) * rowsPerProc);
         vectorProduct(partialA, b, rowsPerProc, n, partialProduct);
+        
+        MPI_Send(partialProduct, rowsPerProc, MPI_DOUBLE, leaderRank, 2, MPI_COMM_WORLD);
         
         free(partialA);
     }

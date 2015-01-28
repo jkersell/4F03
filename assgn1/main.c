@@ -29,10 +29,10 @@ void distributeData(double *A, double *vector, int rowWidth, int processCount, i
     }
 }
 
-void receiveData(double *partialA, double *vector, int rowWidth, int source, int myRank, int rowsPerProc, int extraRows) {
+void receiveData(double *partialA, double *vector, int rowWidth, int source, int myRank, int rowsToReceive, int extraRows) {
     MPI_Status status;
     
-    MPI_Recv(partialA, rowWidth * (rowsPerProc + (myRank < extraRows? 1 : 0)), MPI_DOUBLE, source, 0, MPI_COMM_WORLD, &status);
+    MPI_Recv(partialA, rowWidth * rowsToReceive, MPI_DOUBLE, source, 0, MPI_COMM_WORLD, &status);
     MPI_Recv(vector, rowWidth, MPI_DOUBLE, source, 1, MPI_COMM_WORLD, &status);
 }
 

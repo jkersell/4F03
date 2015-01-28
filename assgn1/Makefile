@@ -1,4 +1,4 @@
-objects = main.o genmatvec.o
+objects = main.o genmatvec.o matvecres.o
 executable = matvec
 CFLAGS+=-Wall -std=gnu99
 

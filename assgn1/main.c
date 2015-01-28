@@ -56,7 +56,6 @@ int main(int argc, char *argv[]) {
     int leaderRank = 0;
     int m = 10;
     int n = 10;
-    double *A = malloc(sizeof(double) * m * n);
     double *b = malloc(sizeof(double) * n);
 
     MPI_Comm_rank(MPI_COMM_WORLD, &myRank);
@@ -66,6 +65,7 @@ int main(int argc, char *argv[]) {
     int extraRows = m - (rowsPerProc * processCount);
     
     if (myRank == leaderRank) {
+        double *A = malloc(sizeof(double) * m * n);
         genMatrix(m, n, A);
         genVector(n, b);
         
@@ -101,6 +101,7 @@ int main(int argc, char *argv[]) {
             printf("%f ", *(finalProduct + i));
         }
         printf("\n");
+        free(A);
     } else {
         if (myRank < extraRows) {
             ++rowsPerProc;
@@ -116,7 +117,6 @@ int main(int argc, char *argv[]) {
         free(partialA);
     }
 
-    free(A);
     free(b);
     MPI_Finalize();
     return 0; 

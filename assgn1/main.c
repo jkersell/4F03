@@ -1,5 +1,6 @@
-#include <stdlib.h>
+#include <float.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "mpi.h"
 
@@ -9,10 +10,10 @@ void getResult(int m, int n, double *A, double *b, double *y);
 
 void distributeData(double *A, double *vector, int rowWidth, int processCount, int rowsPerProc, int extraRows) {
     int tag = 0;
-    int rowsSent = 0;
+    int rowsSent = rowsPerProc;
     // Skip rows for the leader process
     if (extraRows != 0) {
-        rowsSent = rowsPerProc + 1;
+        ++rowsSent;
         --extraRows;
     }
     for (int i = 1; i < processCount; ++i) {
@@ -51,7 +52,7 @@ void printForOctave(double *A, double *b, double *result, int m, int n) {
     printf("A = [");
     for (int i = 0; i < m; ++i) {
         for (int j = 0; j < n; ++j) {
-            printf("%f", A[(i * n) + j]);
+            printf("%.*f", DBL_DIG, A[(i * n) + j]);
             if (j != n - 1) {
                 printf(" ");
             }
@@ -64,7 +65,7 @@ void printForOctave(double *A, double *b, double *result, int m, int n) {
     
     printf("b = [");
     for (int i = 0; i < n; ++i) {
-        printf("%f", b[i]);
+        printf("%.*f", DBL_DIG, b[i]);
         if (i != n - 1) {
             printf("; ");
         }
@@ -73,7 +74,7 @@ void printForOctave(double *A, double *b, double *result, int m, int n) {
     
     printf("result = [");
     for (int i = 0; i < n; ++i) {
-        printf("%f", result[i]);
+        printf("%.*f", DBL_DIG, result[i]);
         if (i != n - 1) {
             printf("; ");
         }

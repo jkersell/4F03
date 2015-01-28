@@ -6,10 +6,11 @@ build : $(objects)
 	mpicc $(CFLAGS) -o $(executable) $(objects)
 
 test : build
-	mpirun -np 4 ./$(executable) > test; \
+	mpirun -np 4 ./$(executable) 1000 1000 > test;
 	echo "octaveResult = A*b" >> test; \
 	echo "errorThreshold = 0.00001" >> test; \
-	echo "all(octaveResult - result < errorThreshold)" >> test; \
+    echo "diff = abs(octaveResult - result)" >> test; \
+	echo "all(diff < errorThreshold)" >> test; \
 	octave test;
 
 .PHONY : clean

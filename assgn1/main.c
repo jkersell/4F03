@@ -87,8 +87,8 @@ int main(int argc, char *argv[]) {
     int myRank;
     int processCount;
     int leaderRank = 0;
-    int m = 10;
-    int n = 10;
+    int m = atoi(argv[1]);
+    int n = atoi(argv[2]);
     double *b = malloc(sizeof(double) * n);
 
     MPI_Comm_rank(MPI_COMM_WORLD, &myRank);

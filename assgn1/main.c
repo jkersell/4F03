@@ -85,11 +85,9 @@ int main(int argc, char *argv[]) {
         distributeData(A, b, n, processCount, rowsPerProc, extraRows);
         
         int rowsOnLeader = rowsPerProc + (extraRows == 0? 0 : 1);
-        double *partialProduct = malloc(sizeof(double) * rowsOnLeader);
-        vectorProduct(A, b, rowsOnLeader, n, partialProduct);
-    }
-    
-    if (myRank != leaderRank) {
+        double *finalProduct = malloc(sizeof(double) * rowsOnLeader);
+        vectorProduct(A, b, rowsOnLeader, n, finalProduct);
+    } else {
         if (myRank < extraRows) {
             ++rowsPerProc;
         }

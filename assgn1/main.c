@@ -44,9 +44,41 @@ void vectorProduct(double *partialA, double *vector, int numRows, int rowWidth, 
             dotProduct += *(partialA + (i * rowWidth) + j) * *(vector + j);
         }
         *(partialProduct + i) = dotProduct;
-        printf("%f\n", dotProduct);
     }
-    printf("\n");
+}
+
+void printForOctave(double *A, double *b, double *result, int m, int n) {
+    printf("A = [");
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+            printf("%f", A[(i * n) + j]);
+            if (j != n - 1) {
+                printf(" ");
+            }
+        }
+        if (i != m - 1) {
+            printf(";\n");
+        }
+    }
+    printf("]\n");
+    
+    printf("b = [");
+    for (int i = 0; i < n; ++i) {
+        printf("%f", b[i]);
+        if (i != n - 1) {
+            printf(" ");
+        }
+    }
+    printf("]\n");
+    
+    printf("result = [");
+    for (int i = 0; i < n; ++i) {
+        printf("%f", result[i]);
+        if (i != n - 1) {
+            printf(" ");
+        }
+    }
+    printf("]\n");
 }
 
 int main(int argc, char *argv[]) {
@@ -70,20 +102,6 @@ int main(int argc, char *argv[]) {
         genMatrix(m, n, A);
         genVector(n, b);
         
-        for (int i = 0; i < m; ++i) {
-            for (int j = 0; j < n; ++j) {
-                printf("%f ", A[(i * n) + j]);
-            }
-            printf("\n");
-        }
-
-        printf("\n\n");
-        
-        for (int i = 0; i < n; ++i) {
-            printf("%f ", b[i]);
-        }
-        printf("\n\n");
-        
         distributeData(A, b, n, processCount, rowsPerProc, extraRows);
         
         int rowsOnLeader = rowsPerProc + (extraRows == 0 ? 0 : 1);
@@ -98,11 +116,7 @@ int main(int argc, char *argv[]) {
             rowsFilled += rowsToReceive;
         }
         
-        for (int i = 0; i < m; ++i) {
-            printf("%f ", *(finalProduct + i));
-        }
-        printf("\n");
-        
+        printForOctave(A, b, finalProduct, m, n);
         getResult(m, n, A, b, finalProduct);
         
         free(A);

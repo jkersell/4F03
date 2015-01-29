@@ -27,15 +27,15 @@ void distributeData(double *A, double *vector, int rowWidth, int processCount, i
         }  
         MPI_Send(A + (rowsSent * rowWidth), rowWidth * rowsToSend, MPI_DOUBLE, i, tag, MPI_COMM_WORLD);
         rowsSent += rowsToSend;
-        MPI_Send(vector, rowWidth, MPI_DOUBLE, i, 1, MPI_COMM_WORLD);
     }
+    MPI_Bcast(vector, rowWidth, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 }
 
 void receiveData(double *partialA, double *vector, int rowWidth, int source, int myRank, int rowsToReceive, int extraRows) {
     MPI_Status status;
     
     MPI_Recv(partialA, rowWidth * rowsToReceive, MPI_DOUBLE, source, 0, MPI_COMM_WORLD, &status);
-    MPI_Recv(vector, rowWidth, MPI_DOUBLE, source, 1, MPI_COMM_WORLD, &status);
+    MPI_Bcast(vector, rowWidth, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 }
 
 void vectorProduct(double *partialA, double *vector, int numRows, int rowWidth, double *partialProduct) {

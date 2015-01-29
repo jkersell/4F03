@@ -6,9 +6,9 @@ build : $(objects)
 	mpicc $(CFLAGS) -o $(executable) $(objects)
 
 test : build
-	mpirun -np 4 ./$(executable) 1000 1000 > test;
+	mpirun -np 4 ./$(executable) 10 10 > test;
 	echo "octaveResult = A*b" >> test; \
-	echo "errorThreshold = 0.00001" >> test; \
+	echo "errorThreshold = 1.0e-12" >> test; \
     echo "diff = abs(octaveResult - result)" >> test; \
 	echo "all(diff < errorThreshold)" >> test; \
 	octave test;

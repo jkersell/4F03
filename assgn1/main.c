@@ -79,6 +79,11 @@ void printForOctave(double *A, double *b, double *result, int m, int n) {
         }
     }
     printf("]\n");
+    
+    printf("octaveResult = A*b\n");
+    printf("errorThreshold = 1.0e-12\n");
+    printf("diff = abs(octaveResult - result)\n");
+    printf("all(diff < errorThreshold)\n");
 }
 
 int main(int argc, char *argv[]) {

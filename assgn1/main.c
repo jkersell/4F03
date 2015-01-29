@@ -90,6 +90,9 @@ int main(int argc, char *argv[]) {
     int leaderRank = 0;
     int m = atoi(argv[1]);
     int n = atoi(argv[2]);
+    if (m <= 0 || n <= 0) {
+        return 1;
+    }
     double *b = malloc(sizeof(double) * n);
 
     MPI_Comm_rank(MPI_COMM_WORLD, &myRank);

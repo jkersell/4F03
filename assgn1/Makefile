@@ -12,5 +12,5 @@ test : build
 
 .PHONY : clean
 clean :
-	-rm matvec $(objects)
+	-rm matvec $(objects) octave.result
 	

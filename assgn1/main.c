@@ -60,7 +60,7 @@ void printForOctave(double *A, double *b, double *result, int m, int n) {
             printf(";\n");
         }
     }
-    printf("]\n");
+    printf("];\n");
     
     printf("b = [");
     for (int i = 0; i < n; ++i) {
@@ -69,7 +69,7 @@ void printForOctave(double *A, double *b, double *result, int m, int n) {
             printf("; ");
         }
     }
-    printf("]\n");
+    printf("];\n");
     
     printf("result = [");
     for (int i = 0; i < n; ++i) {
@@ -78,12 +78,14 @@ void printForOctave(double *A, double *b, double *result, int m, int n) {
             printf("; ");
         }
     }
-    printf("]\n");
+    printf("];\n");
     
-    printf("octaveResult = A*b\n");
-    printf("errorThreshold = 1.0e-12\n");
-    printf("diff = abs(octaveResult - result)\n");
-    printf("all(diff < errorThreshold)\n");
+    printf("octaveResult = A*b;\n");
+    printf("errorThreshold = 1.0e-12;\n");
+    printf("diff = abs(octaveResult - result);\n");
+    printf("passed = all(diff < errorThreshold);\n");
+    printf("save octave.result A b octaveResult diff errorThreshold passed;\n");
+    printf("if (passed) printf(\"Test passed!\\n\") else printf(\"Test Failed\\n\") endif\n");
 }
 
 int main(int argc, char *argv[]) {

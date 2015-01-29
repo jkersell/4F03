@@ -4,8 +4,8 @@
 
 #include "mpi.h"
 
-void genMatrix(int m, int n, double *A);
-void genVector(int n, double *b);
+#include "genmatvec.h"
+
 void getResult(int m, int n, double *A, double *b, double *y);
 
 void distributeData(double *A, double *vector, int rowWidth, int processCount, int rowsPerProc, int extraRows) {

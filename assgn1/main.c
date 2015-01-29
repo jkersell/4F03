@@ -5,8 +5,7 @@
 #include "mpi.h"
 
 #include "genmatvec.h"
-
-void getResult(int m, int n, double *A, double *b, double *y);
+#include "matvecres.h"
 
 void distributeData(double *A, double *vector, int rowWidth, int processCount, int rowsPerProc, int extraRows) {
     int tag = 0;

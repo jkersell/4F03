@@ -24,7 +24,7 @@ void distributeData(double *A, double *vector, int rowWidth, int processCount, i
         } else {
             rowsToSend = rowsPerProc;
         }  
-        MPI_Send(A + (rowsSent * rowWidth), rowWidth * rowsToSend, MPI_DOUBLE, i, tag, MPI_COMM_WORLD);
+        MPI_Send(&A[rowsSent * rowWidth], rowWidth * rowsToSend, MPI_DOUBLE, i, tag, MPI_COMM_WORLD);
         rowsSent += rowsToSend;
     }
     MPI_Bcast(vector, rowWidth, MPI_DOUBLE, 0, MPI_COMM_WORLD);
@@ -41,9 +41,9 @@ void vectorProduct(double *partialA, double *vector, int numRows, int rowWidth, 
     for (int i = 0; i < numRows; ++i) {
         double dotProduct = 0.0;
         for (int j = 0; j < rowWidth; ++j) {
-            dotProduct += *(partialA + (i * rowWidth) + j) * *(vector + j);
+            dotProduct += partialA[(i * rowWidth) + j] * vector[j];
         }
-        *(partialProduct + i) = dotProduct;
+        partialProduct[i] = dotProduct;
     }
 }
 

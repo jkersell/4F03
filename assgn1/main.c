@@ -72,9 +72,9 @@ void printForOctave(double *A, double *b, double *result, int m, int n) {
     printf("];\n");
     
     printf("result = [");
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < m; ++i) {
         printf("%.*f", DBL_DIG, result[i]);
-        if (i != n - 1) {
+        if (i != m - 1) {
             printf("; ");
         }
     }

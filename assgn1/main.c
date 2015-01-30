@@ -7,6 +7,16 @@
 #include "genmatvec.h"
 #include "matvecres.h"
 
+/* This function is part c.
+ * This function distributes A and b across all processes.
+ *
+ * A  The matrix to distribute represented as a one dimentional array.
+ * vector  The vector to distribute.
+ * rowWidth  The length of each row.
+ * processCount  The number of processes to distribute to.
+ * rowsPerProc  The number of rows to send to each process.
+ * extraRows  
+ */
 void distributeData(double *A, double *vector, int rowWidth, int processCount, int rowsPerProc, int extraRows) {
     int tag = 0;
     int rowsSent = rowsPerProc;
@@ -30,13 +40,32 @@ void distributeData(double *A, double *vector, int rowWidth, int processCount, i
     MPI_Bcast(vector, rowWidth, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 }
 
-void receiveData(double *partialA, double *vector, int rowWidth, int source, int myRank, int rowsToReceive, int extraRows) {
+/*
+ * This is also part c
+ * This function receives part of A and all of b from the leader process.
+ *
+ * partialA  Output. A pointer to the memory to store this process' part of A in.
+ * vector  Output. A pointer to the memort to store this process' copy of b in.
+ * rowWidth  The length of each row.
+ * rowsToReceive  the number of rows to receive on this process.
+ */
+void receiveData(double *partialA, double *vector, int rowWidth, int rowsToReceive) {
     MPI_Status status;
     
-    MPI_Recv(partialA, rowWidth * rowsToReceive, MPI_DOUBLE, source, 0, MPI_COMM_WORLD, &status);
+    MPI_Recv(partialA, rowWidth * rowsToReceive, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, &status);
     MPI_Bcast(vector, rowWidth, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 }
 
+/*
+ * This function is part d.
+ * This function computes the partial matrix product of A and b.
+ *
+ * partialA  A pointer to the memory to store this process' part of A in.
+ * vector  A pointer to the memort to store this process' copy of b in.
+ * numRows  The number of rows in partialA.
+ * rowWidth  The length of each row.
+ * partialProduct  Output. The part of the product computer on this process.
+ */
 void vectorProduct(double *partialA, double *vector, int numRows, int rowWidth, double *partialProduct) {
     for (int i = 0; i < numRows; ++i) {
         double dotProduct = 0.0;
@@ -47,6 +76,16 @@ void vectorProduct(double *partialA, double *vector, int numRows, int rowWidth, 
     }
 }
 
+/*
+ * This function is part of part f.
+ * This function outputs an Octave program which can be piped into Octave to verify the result.
+ *
+ * A  The matrix.
+ * b  The vector.
+ * result  The result of the computation.
+ * m  The number of rows in A.
+ * n  The number of columns in A.
+ */
 void printForOctave(double *A, double *b, double *result, int m, int n) {
     printf("A = [");
     for (int i = 0; i < m; ++i) {
@@ -118,6 +157,7 @@ int main(int argc, char *argv[]) {
         double *finalProduct = malloc(sizeof(double) * m);
         vectorProduct(A, b, rowsOnLeader, n, finalProduct);
         
+        // part e
         int rowsFilled = rowsOnLeader;
         for (int i = 1; i < processCount; ++i) {
             MPI_Status status;
@@ -136,7 +176,7 @@ int main(int argc, char *argv[]) {
             ++rowsPerProc;
         }
         double *partialA = malloc(sizeof(double) * n * rowsPerProc);
-        receiveData(partialA, b, n, leaderRank, myRank, rowsPerProc, extraRows);
+        receiveData(partialA, b, n, rowsPerProc);
         
         double *partialProduct = malloc(sizeof(double) * rowsPerProc);
         vectorProduct(partialA, b, rowsPerProc, n, partialProduct);

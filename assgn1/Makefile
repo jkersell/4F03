@@ -1,3 +1,5 @@
+# This makefile contains parts f and g
+
 objects = main.o genmatvec.o matvecres.o
 tests = sanity large very_large prime different moreProcs everMoreProcs moreProcsThanRows
 executable = matvec

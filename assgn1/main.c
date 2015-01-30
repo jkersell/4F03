@@ -15,7 +15,7 @@
  * rowWidth  The length of each row.
  * processCount  The number of processes to distribute to.
  * rowsPerProc  The number of rows to send to each process.
- * extraRows  
+ * extraRows  The number of rows that could not be evenly divided across processes.
  */
 void distributeData(double *A, double *vector, int rowWidth, int processCount, int rowsPerProc, int extraRows) {
     int tag = 0;

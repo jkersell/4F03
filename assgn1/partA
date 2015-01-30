@@ -1,0 +1,36 @@
+Part a
+
+First initialize everything by allocating memory and filling A and b with 
+random values. Divide A into enough groups of rows to distribute them to each
+process. Once A is divided up, each chunk is sent to a process, along with b.
+Each process then computes it's section of the product and sends the result
+back to process 0. Process zero combines the results and prints it.
+
+Pseudo Code:
+
+A[m][n]
+b[n]
+
+for i=0..m
+  for j=0..n
+    A[i][j] = randomValue()
+  endfor
+endfor
+
+for i=0..n
+  b[i] = randomValue()
+endfor
+
+rowsPerProcess = m / processCount
+
+for i=0..processCount
+  send(rowsPerProcess many rows from A)
+  send(b)
+endfor
+
+computeDotProduct(myChunkOfA)
+
+result = combineResults()
+
+print(result)
+    

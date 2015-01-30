@@ -129,6 +129,7 @@ int main(int argc, char *argv[]) {
         printForOctave(A, b, finalProduct, m, n);
         getResult(m, n, A, b, finalProduct);
         
+        free(finalProduct);
         free(A);
     } else {
         if (myRank < extraRows) {

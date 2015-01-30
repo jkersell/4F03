@@ -36,5 +36,5 @@ runAllTests : build $(tests)
 
 .PHONY : clean
 clean :
-	-rm $(executable) $(objects) octave.result
+	-rm $(executable) $(objects) octave.result octave-workspace
 	

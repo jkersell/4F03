@@ -1,4 +1,4 @@
-objects = primegap.o
+objects = primegap.o processinfo.o
 executable = primegap
 CFLAGS += -Wall -std=c99
 

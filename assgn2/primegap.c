@@ -23,8 +23,6 @@ void findLargestGap(unsigned int lowBound, unsigned int highBound, Result *resul
         if (mpz_cmp_ui(gap, largestGap) > 0) {
             largestGap = mpz_get_ui(gap);
         }
-        printf("previous: %lu, nextPrime: %lu, gap: %lu, largestGap: %u\n",
-                mpz_get_ui(previous), mpz_get_ui(nextPrime), mpz_get_ui(gap), largestGap);
         mpz_set(previous, nextPrime);
     }
     buildResult(result, largestGap, mpz_get_ui(nextPrime));

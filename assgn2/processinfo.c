@@ -1,13 +1,13 @@
 #include "processinfo.h"
 
-void buildProcessInfo(ProcessInfo *info, int rank, int processCount, int globalLow, int globalHigh) {
+void buildProcessInfo(ProcessInfo *info, int rank, unsigned int processCount, unsigned int globalLow, unsigned int globalHigh) {
     // Range is inclusive so we need to add 1 here to keep both ends
-    int rangeSize = globalHigh - globalLow + 1;
-    int bucketSize = rangeSize / processCount;
-    int leftover = rangeSize % processCount;
+    unsigned int rangeSize = globalHigh - globalLow + 1;
+    unsigned int bucketSize = rangeSize / processCount;
+    unsigned int leftover = rangeSize % processCount;
 
     info->start = globalLow;
-    for (int i = 0; i < rank; ++i) {
+    for (unsigned int i = 0; i < rank; ++i) {
         info->start += bucketSize;
         if (i < leftover) {
             info->start += 1;

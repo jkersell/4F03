@@ -6,7 +6,7 @@ typedef struct ProcessInfo {
     int end;
 } ProcessInfo;
 
-void buildProcessInfo(ProcessInfo *info, int rank, int processCount, int globalLow, int globalHigh);
+void buildProcessInfo(ProcessInfo *info, int rank, unsigned int processCount, unsigned int globalLow, unsigned int globalHigh);
 
 #endif
 

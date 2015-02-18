@@ -5,8 +5,9 @@
 #include <mpi.h>
 
 #include "processinfo.h"
+#include "result.h"
 
-void findLargestGap(unsigned int lowBound, unsigned int highBound) {
+void findLargestGap(unsigned int lowBound, unsigned int highBound, Result *result) {
     mpz_t previous;
     mpz_t nextPrime;
     unsigned int largestGap = 0;
@@ -25,6 +26,7 @@ void findLargestGap(unsigned int lowBound, unsigned int highBound) {
         printf("previous: %d, nextPrime: %d, gap: %d, largestGap: %d\n", mpz_get_ui(previous), mpz_get_ui(nextPrime), mpz_get_ui(gap), largestGap);
         mpz_set(previous, nextPrime);
     }
+    buildResult(result, largestGap, mpz_get_ui(nextPrime));
 }
 
 int main(int argc, char *argv[]) {
@@ -51,7 +53,8 @@ int main(int argc, char *argv[]) {
         unsigned int send[2] = {lowBound, highBound};
         MPI_Bcast(&send, 2, MPI_INT, ROOT, MPI_COMM_WORLD);
 
-        findLargestGap(info.start, info.end);
+        Result result;
+        findLargestGap(info.start, info.end, &result);
     } else {
         unsigned int recv[2];
         MPI_Bcast(&recv, 2, MPI_INT, ROOT, MPI_COMM_WORLD);
@@ -60,7 +63,8 @@ int main(int argc, char *argv[]) {
         buildProcessInfo(&info, myRank, processCount, recv[0], recv[1]);
         printf("Process %d start: %d, end: %d\n", myRank, info.start, info.end);
 
-        findLargestGap(info.start, info.end);
+        Result result;
+        findLargestGap(info.start, info.end, &result);
     }
 
     MPI_Finalize();

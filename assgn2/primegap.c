@@ -52,10 +52,15 @@ int main(int argc, char *argv[]) {
         printf("Process 0 start: %d, end: %d\n", info.start, info.end);
 
         unsigned int send[2] = {lowBound, highBound};
-        MPI_Bcast(&send, 2, MPI_INT, ROOT, MPI_COMM_WORLD);
+        MPI_Bcast(&send, 2, MPI_UNSIGNED, ROOT, MPI_COMM_WORLD);
 
         Result result;
         findLargestGap(info.start, info.end, &result);
+
+        send[0] = result.largestGap;
+        send[1] = result.lastPrime;
+        unsigned int *recv = malloc(sizeof(unsigned int) * 2 * processCount);
+        MPI_Gather(&send, 2, MPI_UNSIGNED, recv, 2, MPI_UNSIGNED, ROOT, MPI_COMM_WORLD);
     } else {
         unsigned int recv[2];
         MPI_Bcast(&recv, 2, MPI_INT, ROOT, MPI_COMM_WORLD);
@@ -66,6 +71,9 @@ int main(int argc, char *argv[]) {
 
         Result result;
         findLargestGap(info.start, info.end, &result);
+
+        unsigned int send[2] = {result.largestGap, result.lastPrime};
+        MPI_Gather(&send, 2, MPI_UNSIGNED, NULL, 0, MPI_UNSIGNED, ROOT, MPI_COMM_WORLD);
     }
 
     MPI_Finalize();

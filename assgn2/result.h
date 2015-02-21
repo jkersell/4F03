@@ -3,7 +3,7 @@
 
 typedef struct Result {
     unsigned int largestGap;
-    double timeSpent;
+    unsigned int timeSpent;
 } Result;
 
 void buildResult(Result *result, unsigned int largestGap, double timeSpent);

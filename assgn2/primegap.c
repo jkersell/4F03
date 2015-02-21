@@ -1,3 +1,4 @@
+#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -8,6 +9,8 @@
 #include "result.h"
 
 void findLargestGap(unsigned int lowBound, unsigned int highBound, Result *result) {
+    clock_t start;
+    clock_t end;
     mpz_t previous;
     mpz_t nextPrime;
     unsigned int largestGap = 0;
@@ -15,6 +18,7 @@ void findLargestGap(unsigned int lowBound, unsigned int highBound, Result *resul
     mpz_init_set_ui(previous, lowBound);
     mpz_init(nextPrime);
 
+    start = clock();
     while (mpz_get_ui(nextPrime) < highBound) {
         mpz_nextprime(nextPrime, previous);
         mpz_t gap;
@@ -25,7 +29,8 @@ void findLargestGap(unsigned int lowBound, unsigned int highBound, Result *resul
         }
         mpz_set(previous, nextPrime);
     }
-    buildResult(result, largestGap, 0.0);
+    end = clock();
+    buildResult(result, largestGap, end - start);
 }
 
 int main(int argc, char *argv[]) {
@@ -64,12 +69,12 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < processCount; ++i) {
             results[i].largestGap = recv[i * 2];
             results[i].timeSpent = recv[(i * 2) + 1];
-            printf("Process: %u largestGap: %u lastPrime: %u\n", i, results[i].largestGap, results[i].timeSpent);
+            printf("Process: %u largestGap: %u timeSpent: %u\n", i, results[i].largestGap, results[i].timeSpent);
             if (largestOverall < results[i].largestGap) {
                 largestOverall = results[i].largestGap;
             }
         }
-        printf("\n\nLargest gap overall: %lu\n", largestOverall);
+        printf("\n\nLargest gap overall: %u\n", largestOverall);
 
         free(recv);
         free(results);

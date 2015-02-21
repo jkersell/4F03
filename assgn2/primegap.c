@@ -25,7 +25,7 @@ void findLargestGap(unsigned int lowBound, unsigned int highBound, Result *resul
         }
         mpz_set(previous, nextPrime);
     }
-    buildResult(result, largestGap, mpz_get_ui(nextPrime));
+    buildResult(result, largestGap, 0.0);
 }
 
 int main(int argc, char *argv[]) {
@@ -56,15 +56,15 @@ int main(int argc, char *argv[]) {
         findLargestGap(info.start, info.end, &results[0]);
 
         send[0] = results[0].largestGap;
-        send[1] = results[0].lastPrime;
+        send[1] = results[0].timeSpent;
         unsigned int *recv = malloc(sizeof(unsigned int) * 2 * processCount);
         MPI_Gather(&send, 2, MPI_UNSIGNED, recv, 2, MPI_UNSIGNED, ROOT, MPI_COMM_WORLD);
 
         unsigned int largestOverall = 0;
         for (int i = 0; i < processCount; ++i) {
             results[i].largestGap = recv[i * 2];
-            results[i].lastPrime = recv[(i * 2) + 1];
-            printf("Process: %u largestGap: %u lastPrime: %u\n", i, results[i].largestGap, results[i].lastPrime);
+            results[i].timeSpent = recv[(i * 2) + 1];
+            printf("Process: %u largestGap: %u lastPrime: %u\n", i, results[i].largestGap, results[i].timeSpent);
             if (largestOverall < results[i].largestGap) {
                 largestOverall = results[i].largestGap;
             }
@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
         Result result;
         findLargestGap(info.start, info.end, &result);
 
-        unsigned int send[2] = {result.largestGap, result.lastPrime};
+        unsigned int send[2] = {result.largestGap, result.timeSpent};
         MPI_Gather(&send, 2, MPI_UNSIGNED, NULL, 0, MPI_UNSIGNED, ROOT, MPI_COMM_WORLD);
     }
 

@@ -3,9 +3,9 @@
 
 typedef struct Result {
     unsigned int largestGap;
-    unsigned int lastPrime;
+    double timeSpent;
 } Result;
 
-void buildResult(Result *result, unsigned int largestGap, unsigned int lastPrime);
+void buildResult(Result *result, unsigned int largestGap, double timeSpent);
 
 #endif

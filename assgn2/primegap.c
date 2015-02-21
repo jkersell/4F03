@@ -60,8 +60,7 @@ int main(int argc, char *argv[]) {
         unsigned int *recv = malloc(sizeof(unsigned int) * 2 * processCount);
         MPI_Gather(&send, 2, MPI_UNSIGNED, recv, 2, MPI_UNSIGNED, ROOT, MPI_COMM_WORLD);
 
-        printf("Process: 0 largestGap: %u lastPrime: %u\n", results[0].largestGap, results[0].lastPrime);
-        for (int i = 1; i < processCount; ++i) {
+        for (int i = 0; i < processCount; ++i) {
             results[i].largestGap = recv[i * 2];
             results[i].lastPrime = recv[(i * 2) + 1];
             printf("Process: %u largestGap: %u lastPrime: %u\n", i, results[i].largestGap, results[i].lastPrime);

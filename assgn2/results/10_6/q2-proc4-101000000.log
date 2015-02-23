@@ -1,0 +1,11 @@
+Process 0 start: 2, end: 250001
+Process 1 start: 250002, end: 500001
+Process 3 start: 750002, end: 1000000
+Process 2 start: 500002, end: 750001
+Process: 0 largestGap: 86 timeSpent: 599476
+Process: 1 largestGap: 114 timeSpent: 575429
+Process: 2 largestGap: 98 timeSpent: 568208
+Process: 3 largestGap: 100 timeSpent: 566196
+
+
+Largest gap overall: 114

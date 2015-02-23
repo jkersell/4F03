@@ -1,0 +1,44 @@
+Process 6 start: 37500002, end: 43750001
+Process 8 start: 50000002, end: 56250001
+Process 10 start: 62500002, end: 68750001
+Process 14 start: 87500002, end: 93750001
+Process 0 start: 2, end: 6250001
+Process 1 start: 6250002, end: 12500001
+Process 2 start: 12500002, end: 18750001
+Process 4 start: 25000002, end: 31250001
+Process 5 start: 31250002, end: 37500001
+Process 12 start: 75000002, end: 81250001
+Process 13 start: 81250002, end: 87500001
+Process 3 start: 18750002, end: 25000001
+Process 7 start: 43750002, end: 50000001
+Process 9 start: 56250002, end: 62500001
+Process 11 start: 68750002, end: 75000001
+Process 15 start: 93750002, end: 100000000
+Process: 0 largestGap: 154 timeSpent: 9300000
+Process: 1 largestGap: 154 timeSpent: 8050000
+Process: 2 largestGap: 180 timeSpent: 8250000
+Process: 3 largestGap: 210 timeSpent: 8030000
+Process: 4 largestGap: 170 timeSpent: 7470000
+Process: 5 largestGap: 182 timeSpent: 7850000
+Process: 6 largestGap: 178 timeSpent: 8950000
+Process: 7 largestGap: 220 timeSpent: 7960000
+Process: 8 largestGap: 178 timeSpent: 9610000
+Process: 9 largestGap: 178 timeSpent: 7550000
+Process: 10 largestGap: 170 timeSpent: 8290000
+Process: 11 largestGap: 196 timeSpent: 8320000
+Process: 12 largestGap: 184 timeSpent: 8690000
+Process: 13 largestGap: 170 timeSpent: 8230000
+Process: 14 largestGap: 210 timeSpent: 7840000
+Process: 15 largestGap: 176 timeSpent: 8380000
+
+
+Largest gap overall: 220
+--- SharcNET Job Epilogue ---
+Job completed successfully.
+               jobid: 613513
+         exit status: 0
+      allocated time: 172.7785
+           user time: 135.31
+         system time: 0.53
+peak rss=342650880; peak vsz=342650880 (bytes)
+atime=172.7785; utime=135.31; stime=0.53; exit=0

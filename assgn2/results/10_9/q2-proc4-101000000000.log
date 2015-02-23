@@ -1,0 +1,40 @@
+Process 0 start: 2, end: 250000001
+Process 2 start: 500000002, end: 750000001
+Process 1 start: 250000002, end: 500000001
+Process 3 start: 750000002, end: 1000000000
+Process: 0 largestGap: 248 timeSpent: 302900000
+Process: 1 largestGap: 282 timeSpent: 300950000
+Process: 2 largestGap: 276 timeSpent: 301650000
+Process: 3 largestGap: 260 timeSpent: 291260000
+
+
+Largest gap overall: 282
+--- SharcNET Job Epilogue ---
+Job completed successfully.
+               jobid: 613499
+         exit status: 0
+      allocated time: 1217.233
+           user time: 1194.11
+         system time: 3.01
+peak rss=1073741824; peak vsz=1679347712 (bytes)
+atime=1217.233; utime=1194.11; stime=3.01; exit=0
+Process 0 start: 2, end: 250000001
+Process 1 start: 250000002, end: 500000001
+Process 2 start: 500000002, end: 750000001
+Process 3 start: 750000002, end: 1000000000
+Process: 0 largestGap: 248 timeSpent: 301080000
+Process: 1 largestGap: 282 timeSpent: 299690000
+Process: 2 largestGap: 276 timeSpent: 305790000
+Process: 3 largestGap: 260 timeSpent: 296150000
+
+
+Largest gap overall: 282
+--- SharcNET Job Epilogue ---
+Job completed successfully.
+               jobid: 613520
+         exit status: 0
+      allocated time: 1229.459
+           user time: 1204.66
+         system time: 3.55
+peak rss=1073741824; peak vsz=1679368192 (bytes)
+atime=1229.459; utime=1204.66; stime=3.55; exit=0

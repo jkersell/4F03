@@ -1,0 +1,28 @@
+Process 0 start: 2, end: 1000000000
+Process: 0 largestGap: 282 timeSpent: 1210640000
+
+
+Largest gap overall: 282
+--- SharcNET Job Epilogue ---
+Job completed successfully.
+               jobid: 613497
+         exit status: 0
+      allocated time: 1212.24
+           user time: 1208.45
+         system time: 2.35
+peak rss=1073741824; peak vsz=1651658752 (bytes)
+atime=1212.24; utime=1208.45; stime=2.35; exit=0
+Process 0 start: 2, end: 1000000000
+Process: 0 largestGap: 282 timeSpent: 1201410000
+
+
+Largest gap overall: 282
+--- SharcNET Job Epilogue ---
+Job completed successfully.
+               jobid: 613518
+         exit status: 0
+      allocated time: 1202.01
+           user time: 1199.64
+         system time: 1.89
+peak rss=1073741824; peak vsz=1652502528 (bytes)
+atime=1202.01; utime=1199.64; stime=1.89; exit=0

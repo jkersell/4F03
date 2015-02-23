@@ -1,0 +1,16 @@
+Process 0 start: 2, end: 50000001
+Process 1 start: 50000002, end: 100000000
+Process: 0 largestGap: 220 timeSpent: 62800000
+Process: 1 largestGap: 210 timeSpent: 59950000
+
+
+Largest gap overall: 220
+--- SharcNET Job Epilogue ---
+Job completed successfully.
+               jobid: 613509
+         exit status: 0
+      allocated time: 128.629
+           user time: 122.62
+         system time: 0.21
+peak rss=211816448; peak vsz=211816448 (bytes)
+atime=128.629; utime=122.62; stime=0.21; exit=0

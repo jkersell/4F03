@@ -1,0 +1,35 @@
+Process 0 start: 2, end: 62501
+Process 1 start: 62502, end: 125001
+Process 9 start: 562502, end: 625001
+Process 3 start: 187502, end: 250001
+Process 5 start: 312502, end: 375001
+Process 11 start: 687502, end: 750001
+Process 8 start: 500002, end: 562501
+Process 13 start: 812502, end: 875001
+Process 4 start: 250002, end: 312501
+Process 2 start: 125002, end: 187501
+Process 10 start: 625002, end: 687501
+Process 7 start: 437502, end: 500001
+Process 12 start: 750002, end: 812501
+Process 6 start: 375002, end: 437501
+Process 14 start: 875002, end: 937501
+Process 15 start: 937502, end: 1000000
+Process: 0 largestGap: 72 timeSpent: 159344
+Process: 1 largestGap: 64 timeSpent: 154845
+Process: 2 largestGap: 86 timeSpent: 154353
+Process: 3 largestGap: 78 timeSpent: 146580
+Process: 4 largestGap: 82 timeSpent: 149274
+Process: 5 largestGap: 112 timeSpent: 149528
+Process: 6 largestGap: 100 timeSpent: 145273
+Process: 7 largestGap: 114 timeSpent: 142595
+Process: 8 largestGap: 88 timeSpent: 143718
+Process: 9 largestGap: 98 timeSpent: 150043
+Process: 10 largestGap: 84 timeSpent: 146555
+Process: 11 largestGap: 78 timeSpent: 146083
+Process: 12 largestGap: 78 timeSpent: 145093
+Process: 13 largestGap: 100 timeSpent: 140551
+Process: 14 largestGap: 92 timeSpent: 139503
+Process: 15 largestGap: 84 timeSpent: 138350
+
+
+Largest gap overall: 114

@@ -1,0 +1,68 @@
+Process 22 start: 78571433, end: 82142860
+Process 24 start: 85714289, end: 89285716
+Process 0 start: 2, end: 3571430
+Process 2 start: 7142860, end: 10714288
+Process 4 start: 14285718, end: 17857146
+Process 6 start: 21428576, end: 25000004
+Process 8 start: 28571434, end: 32142862
+Process 12 start: 42857150, end: 46428578
+Process 14 start: 50000008, end: 53571436
+Process 16 start: 57142865, end: 60714292
+Process 18 start: 64285721, end: 67857148
+Process 15 start: 53571437, end: 57142864
+Process 17 start: 60714293, end: 64285720
+Process 19 start: 67857149, end: 71428576
+Process 21 start: 75000005, end: 78571432
+Process 25 start: 89285717, end: 92857144
+Process 1 start: 3571431, end: 7142859
+Process 3 start: 10714289, end: 14285717
+Process 5 start: 17857147, end: 21428575
+Process 7 start: 25000005, end: 28571433
+Process 9 start: 32142863, end: 35714291
+Process 11 start: 39285721, end: 42857149
+Process 23 start: 82142861, end: 85714288
+Process 26 start: 92857145, end: 96428572
+Process 10 start: 35714292, end: 39285720
+Process 27 start: 96428573, end: 100000000
+Process 20 start: 71428577, end: 75000004
+Process 13 start: 46428579, end: 50000007
+Process: 0 largestGap: 148 timeSpent: 5060000
+Process: 1 largestGap: 154 timeSpent: 5790000
+Process: 2 largestGap: 152 timeSpent: 5750000
+Process: 3 largestGap: 154 timeSpent: 5340000
+Process: 4 largestGap: 180 timeSpent: 5740000
+Process: 5 largestGap: 210 timeSpent: 5320000
+Process: 6 largestGap: 150 timeSpent: 5780000
+Process: 7 largestGap: 170 timeSpent: 5640000
+Process: 8 largestGap: 148 timeSpent: 5280000
+Process: 9 largestGap: 160 timeSpent: 5710000
+Process: 10 largestGap: 182 timeSpent: 5600000
+Process: 11 largestGap: 178 timeSpent: 4730000
+Process: 12 largestGap: 198 timeSpent: 5620000
+Process: 13 largestGap: 220 timeSpent: 5320000
+Process: 14 largestGap: 178 timeSpent: 5610000
+Process: 15 largestGap: 154 timeSpent: 5630000
+Process: 16 largestGap: 178 timeSpent: 5610000
+Process: 17 largestGap: 164 timeSpent: 4880000
+Process: 18 largestGap: 170 timeSpent: 4650000
+Process: 19 largestGap: 196 timeSpent: 5760000
+Process: 20 largestGap: 176 timeSpent: 5770000
+Process: 21 largestGap: 162 timeSpent: 5750000
+Process: 22 largestGap: 184 timeSpent: 5520000
+Process: 23 largestGap: 170 timeSpent: 4620000
+Process: 24 largestGap: 158 timeSpent: 5230000
+Process: 25 largestGap: 210 timeSpent: 5610000
+Process: 26 largestGap: 180 timeSpent: 5660000
+Process: 27 largestGap: 176 timeSpent: 5590000
+
+
+Largest gap overall: 220
+--- SharcNET Job Epilogue ---
+Job completed successfully.
+               jobid: 613516
+         exit status: 0
+      allocated time: 215.64895
+           user time: 156.51
+         system time: 3.26
+peak rss=454332416; peak vsz=454332416 (bytes)
+atime=215.64895; utime=156.51; stime=3.26; exit=0
